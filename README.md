@@ -5,7 +5,7 @@
 - Web page: <https://pedromsantos.github.io/strumming-ladder/>
 - PDF: [strumming-ladder.pdf](strumming-ladder.pdf)
 
-The song pairings come from the guitar-lesson and tab sites listed at the foot of the page and were not checked against the recordings. Found a wrong pattern? Please open an issue.
+The song pairings come from guitar-lesson and tab sites and were not checked against the recordings. Found a wrong pattern? Please open an issue.
 
 `index.html` and `strumming-ladder.pdf` are generated files; edits made here by hand will be overwritten.
 
