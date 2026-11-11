@@ -1,6 +1,6 @@
 # The Strumming Ladder
 
-115 guitar strumming patterns in 10 levels, ordered so that each one adds or removes a stroke or two from a pattern you already know. Each pattern lists songs it is heard in, and the web page plays every pattern as a click track.
+115 guitar strumming patterns in 10 levels, ordered so that most of them add or remove a stroke or two from a pattern you already know. Each pattern lists songs it is heard in, and the web page plays every pattern as a click track.
 
 - Web page: <https://pedromsantos.github.io/strumming-ladder/>
 - PDF: [strumming-ladder.pdf](strumming-ladder.pdf)
