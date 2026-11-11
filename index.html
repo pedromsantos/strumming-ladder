@@ -20,8 +20,7 @@ h3{margin:1.6rem 0 .5rem;font-size:1.05rem}
 html{scroll-padding-top:var(--top-h,8.5rem)}
 nav.levels{padding:.8rem 1.2rem .55rem;
 display:flex;flex-wrap:wrap;gap:.5rem .55rem;white-space:nowrap}
-nav.levels a{text-decoration:none;color:#fff;background:var(--lv,#4a5568);padding:.32rem .8rem;border-radius:999px;font-size:.82rem;font-weight:600}
-@media (max-width:760px){nav.levels{flex-wrap:nowrap;overflow-x:auto;padding:.6rem 1rem .45rem}}
+nav.levels a{text-decoration:none;color:#fff;background:var(--lv,#4a5568);padding:.3rem .7rem;border-radius:999px;font-size:.74rem;font-weight:600}
 nav.levels a.plain{background:none;color:var(--accent);border:1px solid var(--line)}
 .tempo{display:flex;flex-wrap:wrap;gap:.3rem 1.2rem;align-items:center;font-size:.8rem;color:var(--muted);padding:.15rem 1.2rem .7rem}
 .tempo input[type=range]{width:8rem;vertical-align:middle}
@@ -91,20 +90,42 @@ td.pcell{white-space:nowrap}
 #q{font:inherit;width:100%;max-width:28rem;padding:.45rem .7rem;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg);margin:.2rem 0 .7rem}
 .count{color:var(--muted);font-size:.85rem;margin-left:.6rem}
 footer{color:var(--muted);font-size:.85rem;margin-top:2.5rem}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+button.play,nav.levels a{touch-action:manipulation}
+@media (max-width:760px),(max-height:520px){
+nav.levels{flex-wrap:nowrap;overflow-x:auto;padding:.5rem .8rem .4rem;scrollbar-width:none}
+nav.levels::-webkit-scrollbar{display:none}
+nav.levels a{padding:.4rem .85rem}
+.tempo{flex-wrap:nowrap;gap:.8rem;padding:.1rem .8rem .5rem;white-space:nowrap}
+.tempo>span{display:none}
+.tempo label:first-of-type{flex:1;display:flex;align-items:center;gap:.4rem;min-width:0}
+.tempo input[type=range]{flex:1;width:auto;min-width:2.5rem}
+.tempo input[type=checkbox]{width:1.1rem;height:1.1rem;vertical-align:middle}
+}
+@media (max-width:760px){
+main{padding:1rem .8rem 3rem}
+h1{font-size:1.7rem}
+h2{font-size:1.3rem;margin-top:2rem}
+.rung{padding:.7rem .75rem}
+.level-head{padding:.8rem .9rem}
+button.play{width:2.4rem;height:2.4rem;font-size:.9rem}
+td.r a{min-width:1.9rem;height:1.9rem}
+}
+@media (max-width:430px){.tempo .w{display:none}}
 </style></head><body>
 <div class="top"><nav class="levels" aria-label="Sections">
-<a href="#level-1" style="--lv:#2f6f8f">1 Quarter notes</a>
-<a href="#level-2" style="--lv:#3d7a4f">2 Straight eighth notes</a>
-<a href="#level-3" style="--lv:#a23b72">3 Compound time and waltz</a>
-<a href="#level-4" style="--lv:#b5651d">4 Syncopated eighth notes</a>
-<a href="#level-5" style="--lv:#0e7490">5 Triplets and shuffle</a>
-<a href="#level-6" style="--lv:#7c5c00">6 Syncopated triplets</a>
-<a href="#level-7" style="--lv:#2b5fa8">7 Muting</a>
-<a href="#level-8" style="--lv:#7a3f8f">8 Straight sixteenth notes</a>
-<a href="#level-9" style="--lv:#a83232">9 Syncopated sixteenth notes</a>
-<a href="#level-10" style="--lv:#4a5568">10 Swung sixteenths</a>
+<a href="#level-1" style="--lv:#2f6f8f" title="Level 1: Quarter notes">1/4 notes</a>
+<a href="#level-2" style="--lv:#3d7a4f" title="Level 2: Straight eighth notes">Straight 1/8</a>
+<a href="#level-3" style="--lv:#a23b72" title="Level 3: Compound time and waltz">Compound time &amp; waltz</a>
+<a href="#level-4" style="--lv:#b5651d" title="Level 4: Syncopated eighth notes">Syncopated 1/8</a>
+<a href="#level-5" style="--lv:#0e7490" title="Level 5: Triplets and shuffle">Triplets &amp; shuffle</a>
+<a href="#level-6" style="--lv:#7c5c00" title="Level 6: Syncopated triplets">Syncopated triplets</a>
+<a href="#level-7" style="--lv:#2b5fa8" title="Level 7: Muting: left hand and right hand">Muting</a>
+<a href="#level-8" style="--lv:#7a3f8f" title="Level 8: Straight sixteenth notes">Straight 1/16</a>
+<a href="#level-9" style="--lv:#a83232" title="Level 9: Syncopated sixteenth notes">Syncopated 1/16</a>
+<a href="#level-10" style="--lv:#4a5568" title="Level 10: Swung sixteenths">Swung 1/16</a>
 <a class="plain" href="strumming-ladder.pdf">PDF</a>
-</nav><div class="tempo"><span>&#9654; Click track:</span> <label title="Quarter notes per minute. An eighth note lasts the same in every rung, including 6/8 and 12/8.">Tempo <input id="bpm" type="range" min="40" max="180" value="92" aria-label="Tempo in beats per minute"> <b id="bpmv">92</b> bpm</label> <label><input id="cin" type="checkbox" checked> count-in</label> <label><input id="tick" type="checkbox"> tick every beat</label></div></div>
+</nav><div class="tempo"><span>&#9654; Click track:</span> <label title="Quarter notes per minute. An eighth note lasts the same in every rung, including 6/8 and 12/8."><span class="w">Tempo</span> <input id="bpm" type="range" min="40" max="180" value="92" aria-label="Tempo in beats per minute"> <b id="bpmv">92</b> <span class="w">bpm</span></label> <label><input id="cin" type="checkbox" checked> count-in</label> <label><input id="tick" type="checkbox"> tick<span class="w"> every beat</span></label></div></div>
 <main>
 <h1>The Strumming Ladder</h1>
 <p class="lede">115 guitar strumming patterns in 10 levels, ordered so that each one adds or removes a stroke or two from a pattern you already know, each with the songs it is heard in and a click track to play along with.</p>
