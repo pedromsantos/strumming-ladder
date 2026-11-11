@@ -17,11 +17,13 @@ h2{margin:2.6rem 0 .6rem;font-size:1.5rem}
 h3{margin:1.6rem 0 .5rem;font-size:1.05rem}
 .lede{color:var(--muted);margin:0 0 1rem}
 .top{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
-nav.levels{padding:.5rem 1rem .3rem;
-display:flex;gap:.4rem;overflow-x:auto;white-space:nowrap}
-nav.levels a{text-decoration:none;color:#fff;background:var(--lv,#4a5568);padding:.2rem .65rem;border-radius:999px;font-size:.82rem;font-weight:600}
+html{scroll-padding-top:var(--top-h,8.5rem)}
+nav.levels{padding:.8rem 1.2rem .55rem;
+display:flex;flex-wrap:wrap;gap:.5rem .55rem;white-space:nowrap}
+nav.levels a{text-decoration:none;color:#fff;background:var(--lv,#4a5568);padding:.32rem .8rem;border-radius:999px;font-size:.82rem;font-weight:600}
+@media (max-width:760px){nav.levels{flex-wrap:nowrap;overflow-x:auto;padding:.6rem 1rem .45rem}}
 nav.levels a.plain{background:none;color:var(--accent);border:1px solid var(--line)}
-.tempo{display:flex;flex-wrap:wrap;gap:.2rem 1rem;align-items:center;font-size:.8rem;color:var(--muted);padding:0 1rem .4rem}
+.tempo{display:flex;flex-wrap:wrap;gap:.3rem 1.2rem;align-items:center;font-size:.8rem;color:var(--muted);padding:.15rem 1.2rem .7rem}
 .tempo input[type=range]{width:8rem;vertical-align:middle}
 .tempo b{color:var(--fg);display:inline-block;min-width:1.7rem;text-align:right}
 button.play{font:inherit;font-size:.72rem;line-height:1;width:1.7rem;height:1.7rem;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer;padding:0}
@@ -36,7 +38,7 @@ button.play.on{background:var(--lv);color:#fff;border-color:var(--lv)}
 .level-head h3{margin:0;font-size:1.25rem;color:#fff}
 .level-head p{margin:.3rem 0 0;font-size:.92rem;opacity:.95}
 .rung{display:grid;grid-template-columns:minmax(0,23rem) minmax(0,1fr);gap:.4rem 1.4rem;background:var(--card);border:1px solid var(--line);
-border-radius:10px;padding:.75rem 1rem;margin:.55rem 0;scroll-margin-top:5.2rem}
+border-radius:10px;padding:.75rem 1rem;margin:.55rem 0}
 @media (max-width:760px){.rung{grid-template-columns:minmax(0,1fr)}}
 .rung>div{min-width:0}
 .rung h4{margin:0 0 .45rem;font-size:1.02rem;display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem}
@@ -257,6 +259,7 @@ footer{color:var(--muted);font-size:.85rem;margin-top:2.5rem}
 <p>A strumming pattern is a teacher&#x27;s reading of a recording, not a fixed fact: players vary the strum from bar to bar, sections differ, and lessons often simplify. The song pairings come from guitar-lesson and tab sites and were not checked against the recordings. Treat each song as a place where the pattern fits and can be heard, then let your ear refine it.</p>
 <footer>© 2026 Pedro Santos. Text and diagrams are licensed CC BY-SA 4.0. Also available as a <a href="strumming-ladder.pdf">PDF</a>. Found a wrong pattern? <a href="https://github.com/pedromsantos/strumming-ladder/issues">Report it</a>.</footer>
 </main>
+<script>(function(){var t=document.querySelector('.top');if(!t)return;function f(){document.documentElement.style.setProperty('--top-h',(t.offsetHeight+12)+'px');}f();window.addEventListener('resize',f);})();</script>
 <script>
 (function(){
 var AC=window.AudioContext||window.webkitAudioContext; if(!AC) return;
