@@ -76,6 +76,14 @@ border-radius:10px;padding:.75rem 1rem;margin:.55rem 0}
 .nt .nh{fill:none;stroke:var(--fg);stroke-width:1.3;stroke-linejoin:round}
 .nt .nd{fill:var(--fg)}.nt .nlb{font-size:6.5px;fill:var(--muted);text-anchor:middle}
 .nonotes .pat svg.nt{display:none}
+details.idx{margin:.4rem 0 1.2rem;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+details.idx summary{cursor:pointer;padding:.6rem .9rem;font-weight:700}
+.idxcols{columns:3 15rem;column-gap:1.4rem;padding:0 .9rem .8rem}
+.idxlv{margin-bottom:.9rem}
+.idxlv a{display:flex;gap:.5rem;padding:.22rem .3rem;color:var(--fg);text-decoration:none;font-size:.92rem;border-radius:5px;break-inside:avoid}
+.idxlv a:hover{background:var(--box)}
+.idxlv a b{flex:0 0 1.9rem;text-align:right;color:var(--lv)}
+.idxlv a.lvl{background:var(--lv);color:#fff;font-weight:700;padding:.3rem .6rem;margin-bottom:.2rem;break-after:avoid}
 .ntoggle{display:block;margin:.6rem 0;font-size:.95rem}
 .pat.n16{--cell:1.45rem}.pat.n12{--cell:1.9rem}.pat.n6{--cell:3rem}
 .pat.n16 .a,.pat.n12 .a{font-size:1.3rem}
@@ -183,7 +191,7 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
 <a href="#level-8" style="--lv:#7a3f8f" title="Level 8: Straight sixteenth notes">Straight 1/16</a>
 <a href="#level-9" style="--lv:#a83232" title="Level 9: Syncopated sixteenth notes">Syncopated 1/16</a>
 <a href="#level-10" style="--lv:#4a5568" title="Level 10: Swung sixteenths">Swung 1/16</a>
-<a class="plain" href="strumming-ladder.pdf">PDF</a>
+<a class="plain" href="#index">Index</a><a class="plain" href="strumming-ladder.pdf">PDF</a>
 </nav><div class="tempo"><span>&#9654; Click track:</span> <label title="Quarter notes per minute. In 6/8 and 12/8 the eighth note keeps its length, so the beat is slower: two thirds of the number shown."><span class="w">Tempo</span> <input id="bpm" type="range" min="40" max="180" value="92" aria-label="Tempo in beats per minute"> <b id="bpmv">92</b> <span class="w">bpm</span></label> <label><input id="cin" type="checkbox" checked> count-in</label> <label><input id="tick" type="checkbox"> tick<span class="w"> every beat</span></label></div></div>
 <main>
 <h1>The Strumming Ladder</h1>
@@ -215,6 +223,143 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
 <li><strong>One chord, then two.</strong> Loop the pattern on one chord for a minute, then over a change such as G to C. The pattern must not hiccup at the change.</li>
 <li><strong>Play it with the record.</strong> Put on one of the listed songs and strum along &ndash; on dead strings, as in step 1, if you do not know the chords. When you can hold the pattern through a whole song, climb to the next one.</li></ol></details>
 <h2 id="ladder">The ladder</h2>
+<details class="idx" id="index"><summary>Index of all 115 patterns</summary><div class="idxcols">
+<div class="idxlv" style="--lv:#2f6f8f"><a class="lvl" href="#level-1">Level 1 &middot; Quarter notes</a>
+<a href="#rung-1"><b>1</b>Half notes: two strums</a>
+<a href="#rung-2"><b>2</b>Half notes, then one long strum</a>
+<a href="#rung-3"><b>3</b>Half notes, then a step</a>
+<a href="#rung-4"><b>4</b>Four on the floor</a>
+<a href="#rung-5"><b>5</b>Quarters with a pickup</a>
+</div>
+<div class="idxlv" style="--lv:#3d7a4f"><a class="lvl" href="#level-2">Level 2 &middot; Straight eighth notes</a>
+<a href="#rung-6"><b>6</b>Constant down-up</a>
+<a href="#rung-7"><b>7</b>Constant down-up, then a breather</a>
+<a href="#rung-8"><b>8</b>Three upstrokes</a>
+<a href="#rung-9"><b>9</b>Down, down-up</a>
+<a href="#rung-10"><b>10</b>Plain bar, busy bar</a>
+<a href="#rung-11"><b>11</b>Two upstrokes</a>
+<a href="#rung-12"><b>12</b>Quarters, then eighths</a>
+<a href="#rung-13"><b>13</b>Pickup bar, busy bar</a>
+<a href="#rung-14"><b>14</b>Down-up on beat 2 only</a>
+<a href="#rung-15"><b>15</b>Driving eighths, all down</a>
+<a href="#rung-16"><b>16</b>Downstroke drive with gaps</a>
+<a href="#rung-17"><b>17</b>Boom-chick: bass, strum</a>
+<a href="#rung-18"><b>18</b>Boom-chicka: bass, down-up</a>
+<a href="#rung-19"><b>19</b>Bass notes with a run of strums</a>
+<a href="#rung-20"><b>20</b>Bass, strum, then a run</a>
+<a href="#rung-21"><b>21</b>Strum, bass, strum</a>
+<a href="#rung-22"><b>22</b>Strum and bass in turns</a>
+</div>
+<div class="idxlv" style="--lv:#a23b72"><a class="lvl" href="#level-3">Level 3 &middot; Compound time and waltz</a>
+<a href="#rung-23"><b>23</b>Six-eight: six downstrokes</a>
+<a href="#rung-24"><b>24</b>Six-eight with gaps</a>
+<a href="#rung-25"><b>25</b>Six-eight with upstrokes</a>
+<a href="#rung-26"><b>26</b>Waltz strum (3/4)</a>
+<a href="#rung-27"><b>27</b>Waltz with a push, then the waltz strum</a>
+</div>
+<div class="idxlv" style="--lv:#b5651d"><a class="lvl" href="#level-4">Level 4 &middot; Syncopated eighth notes</a>
+<a href="#rung-28"><b>28</b>Miss beat 3</a>
+<a href="#rung-29"><b>29</b>Miss beat 2</a>
+<a href="#rung-30"><b>30</b>Old Faithful: down, down-up, up-down-up</a>
+<a href="#rung-31"><b>31</b>Down, down-up, then Old Faithful</a>
+<a href="#rung-32"><b>32</b>Two upstrokes, then Old Faithful</a>
+<a href="#rung-33"><b>33</b>Old Faithful, cut short</a>
+<a href="#rung-34"><b>34</b>Miss beat 4</a>
+<a href="#rung-35"><b>35</b>The long pause</a>
+<a href="#rung-36"><b>36</b>One push</a>
+<a href="#rung-37"><b>37</b>Push and answer</a>
+<a href="#rung-38"><b>38</b>Tresillo accents</a>
+<a href="#rung-39"><b>39</b>Off-beats after the one</a>
+<a href="#rung-40"><b>40</b>Two upstrokes, tied over</a>
+<a href="#rung-41"><b>41</b>Push across the bar line</a>
+<a href="#rung-42"><b>42</b>Push, then a gap</a>
+<a href="#rung-43"><b>43</b>Down, down-up, tied over</a>
+<a href="#rung-44"><b>44</b>Old Faithful, tied over</a>
+<a href="#rung-45"><b>45</b>Two upstrokes into Old Faithful, tied over</a>
+<a href="#rung-46"><b>46</b>The long pause, tied over</a>
+<a href="#rung-47"><b>47</b>Miss beat 4, tied over</a>
+</div>
+<div class="idxlv" style="--lv:#0e7490"><a class="lvl" href="#level-5">Level 5 &middot; Triplets and shuffle</a>
+<a href="#rung-48"><b>48</b>Triplets, all downstrokes</a>
+<a href="#rung-49"><b>49</b>Downstroke triplets, one count out</a>
+<a href="#rung-50"><b>50</b>Downstroke triplets with a rest</a>
+<a href="#rung-51"><b>51</b>Slow triplets: one strum, then three</a>
+<a href="#rung-52"><b>52</b>Triplets, alternating</a>
+<a href="#rung-53"><b>53</b>Alternating triplets, one strum out</a>
+<a href="#rung-54"><b>54</b>Alternating triplets, two strums out</a>
+<a href="#rung-55"><b>55</b>Alternating triplets, beat 1 held</a>
+<a href="#rung-56"><b>56</b>One strum, then a triplet</a>
+<a href="#rung-57"><b>57</b>The shuffle</a>
+<a href="#rung-58"><b>58</b>Shuffle with a long first beat</a>
+<a href="#rung-59"><b>59</b>Down, down-up, swung</a>
+<a href="#rung-60"><b>60</b>Plain bar, busy bar, swung</a>
+<a href="#rung-61"><b>61</b>Down, down-up swung, then a stop</a>
+<a href="#rung-62"><b>62</b>Shuffle with space</a>
+<a href="#rung-63"><b>63</b>Swung quarters with a pickup</a>
+<a href="#rung-64"><b>64</b>Swung pickup bar, then shuffle with space</a>
+<a href="#rung-65"><b>65</b>Shuffle with space, then the answer</a>
+<a href="#rung-66"><b>66</b>Swung bass-and-strum</a>
+<a href="#rung-67"><b>67</b>Swung boom-chicka</a>
+</div>
+<div class="idxlv" style="--lv:#7c5c00"><a class="lvl" href="#level-6">Level 6 &middot; Syncopated triplets</a>
+<a href="#rung-68"><b>68</b>Shuffle, then miss beat 3</a>
+<a href="#rung-69"><b>69</b>Miss beat 3, swung</a>
+<a href="#rung-70"><b>70</b>Old Faithful, swung</a>
+<a href="#rung-71"><b>71</b>Swung quarters, then Old Faithful swung</a>
+<a href="#rung-72"><b>72</b>Swung pickup bar, then Old Faithful swung</a>
+<a href="#rung-73"><b>73</b>The long pause, swung</a>
+<a href="#rung-74"><b>74</b>Bass note, then Old Faithful swung</a>
+<a href="#rung-75"><b>75</b>Old Faithful swung, tied over</a>
+</div>
+<div class="idxlv" style="--lv:#2b5fa8"><a class="lvl" href="#level-7">Level 7 &middot; Muting: left hand and right hand</a>
+<a href="#rung-76"><b>76</b>Left-hand mute: ring, then choke</a>
+<a href="#rung-77"><b>77</b>Strum and scratch</a>
+<a href="#rung-78"><b>78</b>Staccato: strum and cut</a>
+<a href="#rung-79"><b>79</b>Staccato off-beats</a>
+<a href="#rung-80"><b>80</b>Palm mute</a>
+<a href="#rung-81"><b>81</b>The chuck (Old Faithful with a slap)</a>
+<a href="#rung-82"><b>82</b>Chucks on 2 and 4, then the chuck strum</a>
+<a href="#rung-83"><b>83</b>One chuck, then none</a>
+</div>
+<div class="idxlv" style="--lv:#7a3f8f"><a class="lvl" href="#level-8">Level 8 &middot; Straight sixteenth notes</a>
+<a href="#rung-84"><b>84</b>The sixteenth engine</a>
+<a href="#rung-85"><b>85</b>Engine with a breath</a>
+<a href="#rung-86"><b>86</b>Gallop into a full beat</a>
+<a href="#rung-87"><b>87</b>The gallop</a>
+<a href="#rung-88"><b>88</b>Indie-rock strum</a>
+<a href="#rung-89"><b>89</b>Eighths with a pickup</a>
+<a href="#rung-90"><b>90</b>Slow strum with a flick</a>
+<a href="#rung-91"><b>91</b>Quarter notes with a flick</a>
+<a href="#rung-92"><b>92</b>Gallop with a breath</a>
+<a href="#rung-93"><b>93</b>Indie-rock strum, then without the last flick</a>
+<a href="#rung-94"><b>94</b>Indie-rock strum, with a run</a>
+<a href="#rung-95"><b>95</b>Indie-rock strum, then a long run</a>
+<a href="#rung-96"><b>96</b>Slow strum with a flick, with a run</a>
+<a href="#rung-97"><b>97</b>Slow strum with a flick, then eighths</a>
+</div>
+<div class="idxlv" style="--lv:#a83232"><a class="lvl" href="#level-9">Level 9 &middot; Syncopated sixteenth notes</a>
+<a href="#rung-98"><b>98</b>Old Faithful, double time</a>
+<a href="#rung-99"><b>99</b>The long pause, double time</a>
+<a href="#rung-100"><b>100</b>Slow start, skip beat 3</a>
+<a href="#rung-101"><b>101</b>Slow strum with a flick, then skip beat 3</a>
+<a href="#rung-102"><b>102</b>Skip beat 3</a>
+<a href="#rung-103"><b>103</b>Fill beat 3, then skip it</a>
+<a href="#rung-104"><b>104</b>Skip beat 3, busy ending</a>
+<a href="#rung-105"><b>105</b>Skip beat 3, two endings</a>
+<a href="#rung-106"><b>106</b>Slow start, busy ending</a>
+<a href="#rung-107"><b>107</b>The Bo Diddley beat</a>
+<a href="#rung-108"><b>108</b>Modern acoustic strum</a>
+<a href="#rung-109"><b>109</b>Funk sixteenths with scratches</a>
+<a href="#rung-110"><b>110</b>Skip beat 3, tied over</a>
+</div>
+<div class="idxlv" style="--lv:#4a5568"><a class="lvl" href="#level-10">Level 10 &middot; Swung sixteenths</a>
+<a href="#rung-111"><b>111</b>The gallop, swung</a>
+<a href="#rung-112"><b>112</b>Swung sixteenths</a>
+<a href="#rung-113"><b>113</b>Bass notes and a swung flick</a>
+<a href="#rung-114"><b>114</b>Old Faithful, double time and swung</a>
+<a href="#rung-115"><b>115</b>Swung chucks</a>
+</div>
+</div></details>
 <section style="--lv:#2f6f8f"><div class="level-head" id="level-1"><h3>Level 1 &middot; Quarter notes</h3><details class="more"><summary>About this level</summary><p>One strum per beat, or fewer. The job here is a steady hand and clean chord changes - nothing else.</p></details></div>
 <svg class="rulefig" viewBox="0 0 400 70" role="img" aria-label="Level 1, Quarter notes: One strum per beat, the swing back up misses the strings"><text class="rt" x="16" y="18">One strum per beat<tspan class="rs" dx="6">the swing back up misses the strings</tspan></text><rect class="rb" x="17.5" y="24" width="89.0" height="38" rx="5"/><path class="ra" d="M39.0 29V44M35.0 39L39.0 44L43.0 39"/><text class="rc n" x="39.0" y="58">1</text><path class="ra miss" d="M85.0 44V29M81.0 34L85.0 29L89.0 34"/><text class="rc off" x="85.0" y="58">+</text><rect class="rb" x="109.5" y="24" width="89.0" height="38" rx="5"/><path class="ra" d="M131.0 29V44M127.0 39L131.0 44L135.0 39"/><text class="rc n" x="131.0" y="58">2</text><path class="ra miss" d="M177.0 44V29M173.0 34L177.0 29L181.0 34"/><text class="rc off" x="177.0" y="58">+</text><rect class="rb" x="201.5" y="24" width="89.0" height="38" rx="5"/><path class="ra" d="M223.0 29V44M219.0 39L223.0 44L227.0 39"/><text class="rc n" x="223.0" y="58">3</text><path class="ra miss" d="M269.0 44V29M265.0 34L269.0 29L273.0 34"/><text class="rc off" x="269.0" y="58">+</text><rect class="rb" x="293.5" y="24" width="89.0" height="38" rx="5"/><path class="ra" d="M315.0 29V44M311.0 39L315.0 44L319.0 39"/><text class="rc n" x="315.0" y="58">4</text><path class="ra miss" d="M361.0 44V29M357.0 34L361.0 29L365.0 34"/><text class="rc off" x="361.0" y="58">+</text></svg>
 <article class="rung" id="rung-1" data-bars="D...D..." data-acc="" data-div="2" data-swing="0" data-bq="1"><div><h4><span class="num">1</span>Half notes: two strums<button class="play" type="button" aria-label="Play pattern 1" title="Play / stop">&#9654;</button></h4><div class="bars"><div class="pat n8" style="--n:8" role="img" aria-label="D- -- D- --"><span class="a">&darr;</span><span class="a"></span><span class="a"></span><span class="a"></span><span class="a">&darr;</span><span class="a"></span><span class="a"></span><span class="a"></span><span class="c">1</span><span class="c sub off">+</span><span class="c off">2</span><span class="c sub off">+</span><span class="c">3</span><span class="c sub off">+</span><span class="c off">4</span><span class="c sub off">+</span><svg class="nt" viewBox="0 0 208 34" role="img" aria-label="The same bar in standard rhythm notation"><path class="nl" d="M0 21H208"/><path class="nh" d="M7.0 24.6L12.6 17.4L19.0 17.4L13.4 24.6L7.0 24.6"/><path class="ns" d="M18.4 17.6V3"/><path class="nh" d="M111.0 24.6L116.6 17.4L123.0 17.4L117.4 24.6L111.0 24.6"/><path class="ns" d="M122.4 17.6V3"/></svg></div></div></div><div><p class="hear">HEAR IT IN</p><p class="songs">When We Were Young – Adele (intro) &bull; Sweet Caroline – Neil Diamond (intro) &bull; Sign of the Times – Harry Styles (chorus)</p><p class="tip">One strum on beat 1, one on beat 3, and let each ring for two beats. Count all four beats out loud. Slow ballads often start like this before the full strum comes in.</p></div></article>
@@ -362,10 +507,11 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
 </section>
 <h2>About the songs</h2>
 <p>A strumming pattern is a teacher&#x27;s reading of a recording, not a fixed fact: players vary the strum from bar to bar, sections differ, and lessons often simplify. Some pairings are a teacher&#x27;s strummed arrangement of a song that has no strummed guitar on the record. The song pairings come from guitar-lesson and tab sites and were not checked against the recordings. Treat each song as a place where the pattern fits and can be heard, then let your ear refine it.</p>
-<footer>© 2026 Pedro Santos. Text and diagrams are licensed CC BY-SA 4.0. Also available as a <a href="strumming-ladder.pdf">PDF</a>. Found a wrong pattern? <a href="https://forms.gle/QZPsvZBsGkCLgS7t7">Tell me with this short form</a>, or <a href="https://github.com/pedromsantos/strumming-ladder/issues">open an issue</a>. Version 2, 11 November 2026. Visits are counted with <a href="https://www.goatcounter.com/">GoatCounter</a>, which uses no cookies.</footer>
+<footer>© 2026 Pedro Santos. Text and diagrams are licensed CC BY-SA 4.0. Also available as a <a href="strumming-ladder.pdf">PDF</a>. Found a wrong pattern? <a href="https://forms.gle/QZPsvZBsGkCLgS7t7">Tell me with this short form</a>, or <a href="https://github.com/pedromsantos/strumming-ladder/issues">open an issue</a>. Version 3, 11 November 2026. Visits are counted with <a href="https://www.goatcounter.com/">GoatCounter</a>, which uses no cookies.</footer>
 </main>
 <script>(function(){var t=document.querySelector('.top');if(!t)return;function f(){document.documentElement.style.setProperty('--top-h',(t.offsetHeight+12)+'px');}f();window.addEventListener('resize',f);})();</script>
 <script>(function(){var b=document.getElementById('nt');if(!b)return;var on=true;try{on=localStorage.getItem('notation')!=='off';}catch(e){}function f(){document.documentElement.classList.toggle('nonotes',!on);b.checked=on;}f();b.addEventListener('change',function(){on=b.checked;try{localStorage.setItem('notation',on?'on':'off');}catch(e){}f();});})();</script>
+<script>(function(){var d=document.getElementById('index');if(!d)return;document.addEventListener('click',function(e){var a=e.target.closest?e.target.closest('a'):null;if(!a)return;if(a.getAttribute('href')==='#index')d.open=true;else if(d.contains(a))d.open=false;});})();</script>
 <script>
 (function(){
 var AC=window.AudioContext||window.webkitAudioContext; if(!AC) return;
