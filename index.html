@@ -580,12 +580,14 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
 })();</script>
 <script>// Ticks for 'I can play this'. Kept in the reader's browser only (localStorage), as a list of tick_key() values
 // (build.py); the progress line, the level counts and the bars in the level buttons are painted from them.
-(function () {
-  var KEY = 'ladder-done',
-    arts = [].slice.call(document.querySelectorAll('article.rung[data-key]')),
-    prog = document.getElementById('progress');
+// One list for each ladder: the strumming patterns, and on the wiki's page the Fingerpicking tab's (keys from
+// fingerpicking.py), each with its own progress line, index, level buttons and level counts.
+function ladderTicks(o) {
+  var KEY = o.key,
+    arts = [].slice.call(document.querySelectorAll(o.arts)),
+    prog = document.getElementById(o.prog);
   if (!arts.length || !prog) return;
-  var done = {}, armed = null;
+  var done = {}, armed = null, clearId = o.prog + '-clear';
   function load() {
     done = {};
     try {
@@ -616,15 +618,15 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
         p[0]++;
         n++;
       } else if (!next) next = a;
-      var link = document.querySelector('#index a[href="#' + a.id + '"]');
+      var link = document.querySelector('#' + o.index + ' a[href="#' + a.id + '"]');
       if (link) link.classList.toggle('done', on);
     });
     Object.keys(per).forEach(function (lv) {
       var p = per[lv];
-      [].forEach.call(document.querySelectorAll('.lvcount[data-lv="' + lv + '"]'), function (s) {
+      [].forEach.call(document.querySelectorAll('.lvcount[' + o.lvAttr + '="' + lv + '"]'), function (s) {
         s.textContent = p[0] ? p[0] + ' of ' + p[1] : '';
       });
-      var b = document.querySelector('nav.levels a[href="#level-' + lv + '"]');
+      var b = document.querySelector('nav.levels a[href="#' + o.level + lv + '"]');
       if (b) b.style.setProperty('--pct', Math.round(100 * p[0] / p[1]) + '%');
     });
     prog.textContent = '';
@@ -643,23 +645,25 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
     if (next) {
       prog.appendChild(document.createTextNode(' Next: '));
       prog.appendChild(
-        el('a', next.id.replace('rung-', '') + '. ' + next.getAttribute('data-title'), { href: '#' + next.id }),
+        el('a', next.id.replace(/^\D+-/, '') + '. ' + next.getAttribute('data-title'), { href: '#' + next.id }),
       );
       prog.appendChild(document.createTextNode('.'));
     }
-    prog.appendChild(el('button', 'Clear my ticks', { type: 'button', id: 'unticks' }));
+    prog.appendChild(el('button', 'Clear my ticks', { type: 'button', id: clearId }));
   }
   document.addEventListener('change', function (e) {
     var b = e.target;
     if (!b.classList || !b.classList.contains('canbox')) return;
-    var k = b.closest('article.rung').getAttribute('data-key');
+    var a = b.closest('article.rung');
+    if (arts.indexOf(a) < 0) return;
+    var k = a.getAttribute('data-key');
     if (b.checked) done[k] = 1;
     else delete done[k];
     save();
     paint();
   });
   document.addEventListener('click', function (e) {
-    if (e.target.id !== 'unticks') return;
+    if (e.target.id !== clearId) return;
     if (!armed) {
       e.target.textContent = 'Tap again to clear all ticks';
       armed = setTimeout(function () {
@@ -682,7 +686,23 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
   });
   load();
   paint();
-})();</script>
+}
+ladderTicks({
+  key: 'ladder-done',
+  arts: 'article.rung[data-key]:not(.fp)',
+  prog: 'progress',
+  index: 'index',
+  level: 'level-',
+  lvAttr: 'data-lv',
+});
+ladderTicks({
+  key: 'ladder-fp-done',
+  arts: 'article.fp[data-key]',
+  prog: 'fp-progress',
+  index: 'fp-index',
+  level: 'fp-level-',
+  lvAttr: 'data-fplv',
+});</script>
 <script>// iPhone and iPad: Safari plays Web Audio through the "ambient" audio session, which the silent switch mutes. Setting the
 // Audio Session API to "playback" (newer Safari) and playing a looping, silent <audio> element (older Safari) both move the
 // page to the "playback" session, which the switch does not mute. Players call ladderUnmute() on start and
@@ -712,65 +732,15 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
     }, 0);
   };
 })();</script>
-<script>// The click track for the strumming patterns: press a pattern's play button to loop it, after an optional count-in.
-// Each <article class="rung"> carries its bars in data-bars (one letter per count, see the README) and its accents in
-// data-acc. Sounds are scheduled a little ahead on the Web Audio clock; the highlight follows them by animation frame.
-(function () {
-  var AC = window.AudioContext || window.webkitAudioContext;
-  var bpmEl = document.getElementById('bpm'),
-    bpmOut = document.getElementById('bpmv'),
-    tickEl = document.getElementById('tick'),
-    cinEl = document.getElementById('cin'),
-    bellEl = document.getElementById('bell');
-  if (!AC || !bpmEl || !bpmOut || !tickEl || !cinEl) return;
-  var ctx = null, nbuf = null, cur = null, timer = null, raf = 0, queue = [];
-  // Every sound of one playback goes through its own gain node, 'master'. Stop fades it out, which also silences notes
-  // already scheduled ahead (up to 1.5 s in a hidden tab).
-  var master = null, gcomp = null;
-  function out() {
-    return master || ctx.destination;
-  }
-  bpmEl.addEventListener('input', function () {
-    bpmOut.textContent = bpmEl.value;
-  });
-  function tone(t, f, dur, vol, type) {
-    var o = ctx.createOscillator(), g = ctx.createGain();
-    o.type = type || 'triangle';
-    o.frequency.setValueAtTime(f, t);
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(vol, t + 0.003);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(g);
-    g.connect(out());
-    o.start(t);
-    o.stop(t + dur + 0.03);
-  }
-  function noise(t, dur, vol, freq, type) {
-    if (!nbuf) {
-      nbuf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.25), ctx.sampleRate);
-      var d = nbuf.getChannelData(0);
-      for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-    }
-    var s = ctx.createBufferSource(), fl = ctx.createBiquadFilter(), g = ctx.createGain();
-    s.buffer = nbuf;
-    fl.type = type || 'bandpass';
-    fl.frequency.value = freq;
-    fl.Q.value = 1.2;
-    g.gain.setValueAtTime(vol, t);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    s.connect(fl);
-    fl.connect(g);
-    g.connect(out());
-    s.start(t);
-    s.stop(t + dur + 0.03);
-  }
-  // Guitar sound. Each string is a Karplus-Strong plucked string: a short burst of filtered noise, shaped like a string
-  // plucked near the soundhole, fed back through a delay one period of the note long; computed once per note and kept.
-  // The strings are spread a little left to right and go through a guitar-body filter, a small room reverb and a
-  // compressor. Strums alternate an open G chord and an open C chord bar by bar; a downstroke starts at the chord's
-  // lowest string, an upstroke covers the top four. Each pluck varies a little in time, loudness and tuning.
-  var gtrEl = document.getElementById('gtr'), ks = {}, ringing = [], gbus = null, gpan = [];
-  var GCH = [{ n: [43, 47, 50, 55, 59, 67], lo: 0 }, { n: [0, 48, 52, 55, 60, 64], lo: 1 }];
+<script>// The guitar sound, shared by the strumming player and the Fingerpicking tab's player. Each string is a Karplus-Strong
+// plucked string: a short burst of filtered noise, shaped like a string plucked near the soundhole, fed back through a
+// delay one period of the note long; computed once per note and kept. The strings are spread a little left to right
+// and go through a guitar-body filter, a small room reverb and a compressor. Each pluck varies a little in loudness and
+// tuning. ladderGuitar(ctx, out) makes one guitar on an AudioContext; out() gives the node it plays into.
+// Strings are numbered 0 (low E) to 5 (high E). Kinds of pluck: 0 normal, 1 bright, 2 muted (short), 3 soft (a
+// hammer-on: no pluck, so a duller start, full length).
+window.ladderGuitar = function (ctx, out) {
+  var ks = {}, ringing = [], gbus = null, gcomp = null, gpan = [];
   function bus() {
     if (gbus) return gbus;
     var comp = ctx.createDynamicsCompressor();
@@ -820,7 +790,7 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
     }
     return gbus;
   }
-  function ksBuf(m, kind) {
+  function buf(m, kind) {
     var key = m + '_' + kind;
     if (ks[key]) return ks[key];
     var sr = ctx.sampleRate,
@@ -834,7 +804,7 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
       p = 0,
       i,
       mx = 0,
-      lp = mute ? 0.8 : kind === 1 ? 0.25 : 0.5,
+      lp = mute || kind === 3 ? 0.8 : kind === 1 ? 0.25 : 0.5,
       pk = Math.max(1, Math.round(N * 0.12));
     for (i = 0; i < N; i++) {
       p = p * lp + (Math.random() * 2 - 1) * (1 - lp);
@@ -867,13 +837,89 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
     if (!m) return;
     bus();
     var s = ctx.createBufferSource(), g = ctx.createGain();
-    s.buffer = ksBuf(m, kind);
+    s.buffer = buf(m, kind);
     s.playbackRate.value = 1 + (Math.random() - 0.5) * 0.004;
     g.gain.setValueAtTime(vol * (0.88 + Math.random() * 0.24), t);
     s.connect(g);
     g.connect(gpan[si]);
     s.start(t);
     ringing[si] = { s: s, g: g };
+  }
+  return {
+    pluck: pluck,
+    damp: damp,
+    // Compute a note's sound before it is needed, so the first bar does not stutter.
+    prep: buf,
+    // Send the guitar into a new output (each playback has its own, which stop fades out).
+    route: function (dest) {
+      if (gcomp) {
+        gcomp.disconnect();
+        gcomp.connect(dest);
+      }
+    },
+  };
+};</script>
+<script>// The click track for the strumming patterns: press a pattern's play button to loop it, after an optional count-in.
+// Each <article class="rung"> carries its bars in data-bars (one letter per count, see the README) and its accents in
+// data-acc. Sounds are scheduled a little ahead on the Web Audio clock; the highlight follows them by animation frame.
+(function () {
+  var AC = window.AudioContext || window.webkitAudioContext;
+  var bpmEl = document.getElementById('bpm'),
+    bpmOut = document.getElementById('bpmv'),
+    tickEl = document.getElementById('tick'),
+    cinEl = document.getElementById('cin'),
+    bellEl = document.getElementById('bell');
+  if (!AC || !bpmEl || !bpmOut || !tickEl || !cinEl) return;
+  var ctx = null, nbuf = null, cur = null, timer = null, raf = 0, queue = [];
+  // Every sound of one playback goes through its own gain node, 'master'. Stop fades it out, which also silences notes
+  // already scheduled ahead (up to 1.5 s in a hidden tab).
+  var master = null;
+  function out() {
+    return master || ctx.destination;
+  }
+  bpmEl.addEventListener('input', function () {
+    bpmOut.textContent = bpmEl.value;
+  });
+  function tone(t, f, dur, vol, type) {
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = type || 'triangle';
+    o.frequency.setValueAtTime(f, t);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.003);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g);
+    g.connect(out());
+    o.start(t);
+    o.stop(t + dur + 0.03);
+  }
+  function noise(t, dur, vol, freq, type) {
+    if (!nbuf) {
+      nbuf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.25), ctx.sampleRate);
+      var d = nbuf.getChannelData(0);
+      for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    }
+    var s = ctx.createBufferSource(), fl = ctx.createBiquadFilter(), g = ctx.createGain();
+    s.buffer = nbuf;
+    fl.type = type || 'bandpass';
+    fl.frequency.value = freq;
+    fl.Q.value = 1.2;
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    s.connect(fl);
+    fl.connect(g);
+    g.connect(out());
+    s.start(t);
+    s.stop(t + dur + 0.03);
+  }
+  // Guitar sound (js/guitar.js): strums alternate an open G chord and an open C chord bar by bar; a downstroke starts at
+  // the chord's lowest string, an upstroke covers the top four. Each pluck varies a little in time.
+  var gtrEl = document.getElementById('gtr'), gtr = null;
+  var GCH = [{ n: [43, 47, 50, 55, 59, 67], lo: 0 }, { n: [0, 48, 52, 55, 60, 64], lo: 1 }];
+  function pluck(si, t, vol, kind, m) {
+    gtr.pluck(si, t, vol, kind, m);
+  }
+  function damp(si, t) {
+    if (gtr) gtr.damp(si, t);
   }
   function strum(t, down, vol, from, to, kind, gap, C) {
     var lo = Math.max(from, C.lo), n = 0, si;
@@ -891,8 +937,8 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
     GCH.forEach(function (C) {
       C.n.forEach(function (m) {
         if (m) {
-          ksBuf(m, 0);
-          ksBuf(m, 1);
+          gtr.prep(m, 0);
+          gtr.prep(m, 1);
         }
       });
     });
@@ -1024,6 +1070,7 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
     if (window.ladderUnmute) ladderUnmute();
     if (!ctx) {
       ctx = new AC();
+      gtr = window.ladderGuitar(ctx, out);
       // iPhone and iPad: locking the screen or switching apps pauses the audio ('interrupted' in Safari, 'suspended'
       // elsewhere). Stop the pattern cleanly then, so the button is ready to press again instead of stuck on stop.
       ctx.addEventListener('statechange', function () {
@@ -1034,10 +1081,7 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
     if (ctx.state !== 'running') ctx.resume();
     master = ctx.createGain();
     master.connect(ctx.destination);
-    if (gcomp) {
-      gcomp.disconnect();
-      gcomp.connect(master);
-    }
+    gtr.route(master);
     if (gtrEl && gtrEl.checked) prepGtr();
     var bars = el.getAttribute('data-bars').split('|');
     var acc = el.getAttribute('data-acc').split('|').map(function (a) {
