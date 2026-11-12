@@ -146,7 +146,7 @@ nav.levels{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;padding:.
 nav.levels::-webkit-scrollbar{display:none}
 nav.levels .brk{display:none}
 nav.levels a{padding:.4rem .85rem}
-.tempo{flex-wrap:wrap;justify-content:center;gap:.25rem .9rem;padding:.1rem .8rem .5rem;white-space:nowrap}
+.tempo{flex-wrap:wrap;justify-content:center;gap:.25rem .6rem;padding:.1rem .5rem .5rem;white-space:nowrap}
 .tempo>span{display:none}
 .tempo label:first-of-type{flex:1 1 0;display:flex;align-items:center;gap:.4rem;min-width:0}
 .tempo .tbrk{display:block;flex-basis:100%;height:0}
@@ -164,6 +164,7 @@ button.play{width:2.4rem;height:2.4rem;font-size:.9rem}
 td.r a{min-width:1.9rem;height:1.9rem}
 }
 @media (max-width:430px){.tempo .w{display:none}}
+@media (max-width:359px){.tempo{font-size:.72rem;gap:.25rem .45rem}}
 .rulefig{display:block;width:100%;max-width:680px;margin:1.1rem auto .4rem;font-family:inherit}
 .rulefig .rt{font-size:10.5px;font-weight:700;fill:var(--fg)}
 .rulefig .rt.b{font-size:12.5px}
@@ -213,7 +214,7 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
 <a href="#level-10" style="--lv:#4a5568" title="Level 10: Swung sixteenths">Swung 1/16</a>
 <a class="plain" href="#index">Index</a><a class="plain" href="strumming-ladder.pdf">PDF</a>
 </nav>
-<div class="tempo"><span>&#9654; Click track:</span> <label title="Quarter notes per minute. In 6/8 and 12/8 the eighth note keeps its length, so the beat is slower: two thirds of the number shown."><span class="w">Tempo</span> <input id="bpm" type="range" min="40" max="180" value="92" aria-label="Tempo in beats per minute"> <b id="bpmv">92</b> <span class="w">bpm</span></label> <label class="for-strum snd" title="Play each pattern strummed on a guitar instead of clicks: open G and open C, a bar each. The guitar sound is made in the browser."><input id="gtr" type="checkbox"> guitar</label><span class="tbrk"></span> <label><input id="cin" type="checkbox" checked> count-in</label> <label title="Ticked: a bell on count 1 of every bar. Unticked: a bell only when something is played on count 1"><input id="bell" type="checkbox"> bell<span class="w"> on 1</span></label> <label><input id="tick" type="checkbox"> tick<span class="w"> every beat</span></label> <label class="for-strum" title="Show the line of standard notation under each pattern"><input id="nt" type="checkbox" checked> notation</label></div></div>
+<div class="tempo"><span>&#9654; Click track:</span> <label title="Quarter notes per minute. In 6/8 and 12/8 the eighth note keeps its length, so the beat is slower: two thirds of the number shown."><span class="w">Tempo</span> <input id="bpm" type="range" min="40" max="180" value="92" aria-label="Tempo in beats per minute"> <b id="bpmv">92</b> <span class="w">bpm</span></label> <span class="tbrk"></span> <label class="for-strum snd" title="Play each pattern strummed on a guitar instead of clicks: open G and open C, a bar each. The guitar sound is made in the browser."><input id="gtr" type="checkbox"> guitar</label> <label><input id="cin" type="checkbox" checked> count-in</label> <label title="Ticked: a bell on count 1 of every bar. Unticked: a bell only when something is played on count 1"><input id="bell" type="checkbox"> bell<span class="w"> on 1</span></label> <label><input id="tick" type="checkbox"> tick<span class="w"> every beat</span></label> <label class="for-strum" title="Show the line of standard notation under each pattern"><input id="nt" type="checkbox" checked> notation</label></div></div>
 <main>
 <h1>The Strumming Ladder</h1>
 <p class="lede">115 guitar strumming patterns in 10 levels, ordered so that most of them add or remove a stroke or two from a pattern you already know, each with the songs it is heard in and a click track to play along with.</p>
@@ -528,7 +529,7 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
 </section>
 <h2>About the songs</h2>
 <p>A strumming pattern is a teacher&#x27;s reading of a recording, not a fixed fact: players vary the strum from bar to bar, sections differ, and lessons often simplify. Some pairings are a teacher&#x27;s strummed arrangement of a song that has no strummed guitar on the record. The song pairings come from guitar-lesson and tab sites and were not checked against the recordings. Treat each song as a place where the pattern fits and can be heard, then let your ear refine it.</p>
-<footer>© 2026 Pedro Santos. Text and diagrams are licensed CC BY-SA 4.0. Also available as a <a href="strumming-ladder.pdf">PDF</a>. Found a wrong pattern? <a href="https://forms.gle/QZPsvZBsGkCLgS7t7">Tell me with this short form</a>, or <a href="https://github.com/pedromsantos/strumming-ladder/issues">open an issue</a>. Version 9, 12 November 2026. Visits are counted with <a href="https://www.goatcounter.com/">GoatCounter</a>, which uses no cookies.</footer>
+<footer>© 2026 Pedro Santos. Text and diagrams are licensed CC BY-SA 4.0. Also available as a <a href="strumming-ladder.pdf">PDF</a>. Found a wrong pattern? <a href="https://forms.gle/QZPsvZBsGkCLgS7t7">Tell me with this short form</a>, or <a href="https://github.com/pedromsantos/strumming-ladder/issues">open an issue</a>. Version 10, 12 November 2026. Visits are counted with <a href="https://www.goatcounter.com/">GoatCounter</a>, which uses no cookies.</footer>
 </main>
 <script>// The sticky top bar: keeps --top-h at its height, so a jump to an anchor (scroll-padding-top) lands below it.
 (function () {
@@ -1017,8 +1018,16 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
   }
   function start(el, btn) {
     if (window.ladderUnmute) ladderUnmute();
-    if (!ctx) ctx = new AC();
-    if (ctx.state === 'suspended') ctx.resume();
+    if (!ctx) {
+      ctx = new AC();
+      // iPhone and iPad: locking the screen or switching apps pauses the audio ('interrupted' in Safari, 'suspended'
+      // elsewhere). Stop the pattern cleanly then, so the button is ready to press again instead of stuck on stop.
+      ctx.addEventListener('statechange', function () {
+        if (cur && ctx.state !== 'running') stop();
+      });
+    }
+    // Wake the audio from any pause, not only 'suspended': after an interruption it would otherwise stay silent.
+    if (ctx.state !== 'running') ctx.resume();
     master = ctx.createGain();
     master.connect(ctx.destination);
     if (gcomp) {
