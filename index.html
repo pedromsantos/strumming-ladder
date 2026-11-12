@@ -530,141 +530,548 @@ details.more p,details.more ol{color:var(--fg);font-size:.95rem}
 <p>A strumming pattern is a teacher&#x27;s reading of a recording, not a fixed fact: players vary the strum from bar to bar, sections differ, and lessons often simplify. Some pairings are a teacher&#x27;s strummed arrangement of a song that has no strummed guitar on the record. The song pairings come from guitar-lesson and tab sites and were not checked against the recordings. Treat each song as a place where the pattern fits and can be heard, then let your ear refine it.</p>
 <footer>© 2026 Pedro Santos. Text and diagrams are licensed CC BY-SA 4.0. Also available as a <a href="strumming-ladder.pdf">PDF</a>. Found a wrong pattern? <a href="https://forms.gle/QZPsvZBsGkCLgS7t7">Tell me with this short form</a>, or <a href="https://github.com/pedromsantos/strumming-ladder/issues">open an issue</a>. Version 9, 12 November 2026. Visits are counted with <a href="https://www.goatcounter.com/">GoatCounter</a>, which uses no cookies.</footer>
 </main>
-<script>(function(){var t=document.querySelector('.top');if(!t)return;function f(){document.documentElement.style.setProperty('--top-h',(t.offsetHeight+12)+'px');}f();if(window.ResizeObserver)new ResizeObserver(f).observe(t);else window.addEventListener('resize',f);})();</script>
-<script>(function(){var b=document.getElementById('nt');if(!b)return;var on=true;try{on=localStorage.getItem('notation')!=='off';}catch{/* storage blocked: keep the default */}function f(){document.documentElement.classList.toggle('nonotes',!on);b.checked=on;}f();b.addEventListener('change',function(){on=b.checked;try{localStorage.setItem('notation',on?'on':'off');}catch{/* storage blocked: not remembered */}f();});})();</script>
-<script>(function(){var d=document.getElementById('index');if(!d)return;document.addEventListener('click',function(e){var a=e.target.closest?e.target.closest('a'):null;if(!a)return;if(a.getAttribute('href')==='#index')d.open=true;else if(d.contains(a))d.open=false;});})();</script>
-<script>
-(function(){
-var KEY='ladder-done',arts=[].slice.call(document.querySelectorAll('article.rung[data-key]')),prog=document.getElementById('progress');
-if(!arts.length||!prog)return;
-var done={},armed=null;
-function load(){done={};try{JSON.parse(localStorage.getItem(KEY)||'[]').forEach(function(k){done[k]=1;});}catch{/* blocked or unreadable: start empty */}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(Object.keys(done)));}catch{/* storage blocked: ticks last this visit only */}}
-function el(tag,text,attrs){var x=document.createElement(tag);x.textContent=text;for(var k in attrs||{})x.setAttribute(k,attrs[k]);return x;}
-function paint(){var n=0,next=null,per={};
- arts.forEach(function(a){var on=!!done[a.getAttribute('data-key')],lv=a.getAttribute('data-lv'),p=per[lv]||(per[lv]=[0,0]);
-  a.classList.toggle('done',on);a.querySelector('.canbox').checked=on;p[1]++;
-  if(on){p[0]++;n++;}else if(!next)next=a;
-  var link=document.querySelector('#index a[href="#'+a.id+'"]');if(link)link.classList.toggle('done',on);});
- Object.keys(per).forEach(function(lv){var p=per[lv];
-  [].forEach.call(document.querySelectorAll('.lvcount[data-lv="'+lv+'"]'),function(s){s.textContent=p[0]?p[0]+' of '+p[1]:'';});
-  var b=document.querySelector('nav.levels a[href="#level-'+lv+'"]');if(b)b.style.setProperty('--pct',Math.round(100*p[0]/p[1])+'%');});
- prog.textContent='';
- if(!n){prog.textContent='Tick “I can play this” under a pattern and the page will remember it, in this browser only.';return;}
- prog.appendChild(el('strong',n===arts.length?'You can play all '+n+' patterns.':'You can play '+n+' of '+arts.length+' patterns.'));
- if(next){prog.appendChild(document.createTextNode(' Next: '));
-  prog.appendChild(el('a',next.id.replace('rung-','')+'. '+next.getAttribute('data-title'),{href:'#'+next.id}));
-  prog.appendChild(document.createTextNode('.'));}
- prog.appendChild(el('button','Clear my ticks',{type:'button',id:'unticks'}));}
-document.addEventListener('change',function(e){var b=e.target;if(!b.classList||!b.classList.contains('canbox'))return;
- var k=b.closest('article.rung').getAttribute('data-key');if(b.checked)done[k]=1;else delete done[k];save();paint();});
-document.addEventListener('click',function(e){if(e.target.id!=='unticks')return;
- if(!armed){e.target.textContent='Tap again to clear all ticks';armed=setTimeout(function(){armed=null;paint();},4000);return;}
- clearTimeout(armed);armed=null;done={};save();paint();});
-window.addEventListener('storage',function(e){if(e.key===KEY){load();paint();}});
-load();paint();
-})();
-</script>
-<script>(function(){var a=null;window.ladderUnmute=function(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback';}catch{/* no Audio Session API: the silent clip below does it */}if(!a){a=document.createElement('audio');a.setAttribute('x-webkit-airplay','deny');a.setAttribute('playsinline','');a.loop=true;a.src='data:audio/wav;base64,UklGRkQDAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YSADAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==';}var p=a.play();if(p&&p.catch)p.catch(function(){});};window.ladderUnmuteEnd=function(){setTimeout(function(){if(a&&!document.querySelector('button.play.on,button.fplay.on'))a.pause();},0);};})();</script>
-<script>
-(function(){
-var AC=window.AudioContext||window.webkitAudioContext;
-var bpmEl=document.getElementById('bpm'),bpmOut=document.getElementById('bpmv'),tickEl=document.getElementById('tick'),cinEl=document.getElementById('cin'),bellEl=document.getElementById('bell');
-if(!AC||!bpmEl||!bpmOut||!tickEl||!cinEl)return;
-var ctx=null,nbuf=null,cur=null,timer=null,raf=0,queue=[];
-// Every sound of one playback goes through its own gain node, 'master'. Stop fades it out, which also silences notes
-// already scheduled ahead (up to 1.5 s in a hidden tab).
-var master=null,gcomp=null;
-function out(){return master||ctx.destination;}
-bpmEl.addEventListener('input',function(){bpmOut.textContent=bpmEl.value;});
-function tone(t,f,dur,vol,type){var o=ctx.createOscillator(),g=ctx.createGain();o.type=type||'triangle';o.frequency.setValueAtTime(f,t);
- g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+0.003);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
- o.connect(g);g.connect(out());o.start(t);o.stop(t+dur+0.03);}
-function noise(t,dur,vol,freq,type){if(!nbuf){nbuf=ctx.createBuffer(1,Math.floor(ctx.sampleRate*0.25),ctx.sampleRate);var d=nbuf.getChannelData(0);
- for(var i=0;i<d.length;i++)d[i]=Math.random()*2-1;}
- var s=ctx.createBufferSource(),fl=ctx.createBiquadFilter(),g=ctx.createGain();s.buffer=nbuf;fl.type=type||'bandpass';fl.frequency.value=freq;fl.Q.value=1.2;
- g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);s.connect(fl);fl.connect(g);g.connect(out());s.start(t);s.stop(t+dur+0.03);}
-// Guitar sound. Each string is a Karplus-Strong plucked string: a short burst of filtered noise, shaped like a string
-// plucked near the soundhole, fed back through a delay one period of the note long; computed once per note and kept.
-// The strings are spread a little left to right and go through a guitar-body filter, a small room reverb and a
-// compressor. Strums alternate an open G chord and an open C chord bar by bar; a downstroke starts at the chord's
-// lowest string, an upstroke covers the top four. Each pluck varies a little in time, loudness and tuning.
-var gtrEl=document.getElementById('gtr'),ks={},ringing=[],gbus=null,gpan=[];
-var GCH=[{n:[43,47,50,55,59,67],lo:0},{n:[0,48,52,55,60,64],lo:1}];
-function bus(){if(gbus)return gbus;
- var comp=ctx.createDynamicsCompressor();comp.threshold.value=-16;comp.ratio.value=3;comp.connect(out());gcomp=comp;
- var f=[['peaking',105,1.2,4],['peaking',210,1.4,2.5],['peaking',1200,1,-2],['peaking',3200,1.5,-3],['highshelf',7000,0.7,-8]],node=comp,i;
- for(i=f.length-1;i>=0;i--){var q=ctx.createBiquadFilter();q.type=f[i][0];q.frequency.value=f[i][1];q.Q.value=f[i][2];q.gain.value=f[i][3];q.connect(node);node=q;}
- var rv=ctx.createConvolver(),len=Math.floor(ctx.sampleRate*1.3),ir=ctx.createBuffer(2,len,ctx.sampleRate);
- for(var c=0;c<2;c++){var d=ir.getChannelData(c);for(var j=0;j<len;j++)d[j]=(Math.random()*2-1)*Math.pow(1-j/len,3)*0.5;}
- rv.buffer=ir;var wet=ctx.createGain();wet.gain.value=0.16;rv.connect(wet);wet.connect(comp);
- gbus=ctx.createGain();gbus.gain.value=1.8;gbus.connect(node);gbus.connect(rv);
- for(var st=0;st<6;st++){var pn=ctx.createStereoPanner?ctx.createStereoPanner():ctx.createGain();if(pn.pan)pn.pan.value=-0.35+st*0.14;pn.connect(gbus);gpan[st]=pn;}
- return gbus;}
-function ksBuf(m,kind){var key=m+'_'+kind;if(ks[key])return ks[key];
- var sr=ctx.sampleRate,f=440*Math.pow(2,(m-69)/12),N=Math.max(2,Math.round(sr/f)),mute=kind===2,
-  len=Math.floor(sr*(mute?0.22:3.2)),b=ctx.createBuffer(1,len,sr),d=b.getChannelData(0),x=new Float32Array(N),p=0,i,mx=0,
-  lp=mute?0.8:kind===1?0.25:0.5,pk=Math.max(1,Math.round(N*0.12));
- for(i=0;i<N;i++){p=p*lp+(Math.random()*2-1)*(1-lp);x[i]=p;}
- for(i=0;i<N;i++){d[i]=x[i]-(i>=pk?x[i-pk]:0)*0.9;mx=Math.max(mx,Math.abs(d[i]));}
- for(i=0;i<N;i++)d[i]=d[i]/(mx||1)*0.6;
- var k=mute?0.955:0.9965+0.002*Math.min(1,110/f);
- for(i=N;i<len;i++)d[i]=k*0.5*(d[i-N]+(i-N-1>=0?d[i-N-1]:0));
- var fd=Math.floor(sr*0.05);for(i=0;i<fd;i++)d[len-1-i]*=i/fd;
- ks[key]=b;return b;}
-function damp(si,t){var r=ringing[si];if(!r)return;try{r.g.gain.cancelScheduledValues(t);r.g.gain.setTargetAtTime(0,t,0.012);r.s.stop(t+0.12);}catch{/* the note has already ended */}ringing[si]=null;}
-function pluck(si,t,vol,kind,m){damp(si,t);if(!m)return;bus();var s=ctx.createBufferSource(),g=ctx.createGain();s.buffer=ksBuf(m,kind);
- s.playbackRate.value=1+(Math.random()-0.5)*0.004;g.gain.setValueAtTime(vol*(0.88+Math.random()*0.24),t);
- s.connect(g);g.connect(gpan[si]);s.start(t);ringing[si]={s:s,g:g};}
-function strum(t,down,vol,from,to,kind,gap,C){var lo=Math.max(from,C.lo),n=0,si;
- function one(si){pluck(si,t+gap*n+(Math.random()-0.5)*0.003,vol*(1-0.04*n),kind,C.n[si]);n++;}
- if(down)for(si=lo;si<=to;si++)one(si);else for(si=to;si>=lo;si--)one(si);}
-function chordNow(){return GCH[((cur&&cur.bn)||0)%2];}
-function prepGtr(){GCH.forEach(function(C){C.n.forEach(function(m){if(m){ksBuf(m,0);ksBuf(m,1);}});});}
-function hitG(ch,t,acc){var C=chordNow(),v=acc?0.55:0.34;
- if(ch==='D')strum(t,1,v,0,5,acc?1:0,acc?0.0055:0.007,C);else if(ch==='U')strum(t,0,v*0.72,2,5,1,0.006,C);
- else if(ch==='S'||ch==='s'){if(ch==='S')strum(t,1,v,0,5,0,0.007,C);else strum(t,0,v*0.72,2,5,1,0.006,C);for(var i=0;i<6;i++)damp(i,t+0.13);}
- else if(ch==='B')pluck(C.lo,t,0.6,0,C.n[C.lo]);
- else if(ch==='P')strum(t,1,0.55,0,3,2,0.006,C);
- else{for(var j=0;j<6;j++)damp(j,t);strum(t,ch!=='m',0.26,ch==='m'?2:0,5,2,0.005,C);noise(t,0.04,ch==='X'?0.4:0.28,ch==='m'?3400:2300);}}
-function hit(ch,t,acc){if(gtrEl&&gtrEl.checked){hitG(ch,t,acc);return;}var v=acc?0.95:0.5;
- if(ch==='D')tone(t,440,0.085,v,'triangle');else if(ch==='U')tone(t,1760,0.03,v*0.4,'square');
- else if(ch==='S')tone(t,440,0.024,v,'triangle');else if(ch==='s')tone(t,1760,0.014,v*0.4,'square');
- else if(ch==='B')tone(t,110,0.24,0.9,'sine');
- else if(ch==='M'||ch==='m'||ch==='X')noise(t,0.045,0.7,ch==='m'?3400:2300);
- else if(ch==='P'){noise(t,0.06,0.5,480,'lowpass');tone(t,165,0.08,0.5,'sine');}}
-function offset(st,k){var b=Math.floor(k/st.div),r=k%st.div,fr=st.swing?(st.div===2?[0,2/3]:[0,1/3,1/2,5/6])[r]:r/st.div;return b+fr;}
-function clearNow(el){[].forEach.call(el.querySelectorAll('.now'),function(x){x.classList.remove('now');});}
-function stop(){if(timer){clearInterval(timer);timer=null;}if(raf){cancelAnimationFrame(raf);raf=0;}if(ctx)for(var gi=0;gi<6;gi++)damp(gi,ctx.currentTime);
- if(master){var m=master;master=null;m.gain.setTargetAtTime(0,ctx.currentTime,0.01);setTimeout(function(){m.disconnect();},150);}if(cur){clearNow(cur.el);cur.btn.textContent='\u25B6';cur.btn.setAttribute('aria-pressed','false');cur.btn.classList.remove('on');if(window.ladderUnmuteEnd)ladderUnmuteEnd();}cur=null;queue=[];}
-function schedule(){var st=cur;if(!st)return;var ahead=document.hidden?1.5:0.14;
- while(true){var t=st.barStart+offset(st,st.k)*st.beat;if(t>ctx.currentTime+ahead)break;
-  if(st.ci>0){var on=(st.ci===2?st.c1:st.call).indexOf(st.k)>-1;
-   if(on){noise(t,0.03,0.55,st.k===0?3000:2000);tone(t,st.k===0?1568:1175,0.05,0.4,'triangle');queue.push({t:t,bar:0,k:st.k,ci:true});}}
-  else{var ch=st.bars[st.bar].charAt(st.k),acc=st.acc[st.bar].indexOf(st.k)>-1;
-   if(st.k===0&&(ch!=='.'||(bellEl&&bellEl.checked))){tone(t,988,0.38,0.5,'sine');tone(t,2960,0.22,0.22,'sine');}
-   else if(tickEl.checked&&st.k%st.div===0)tone(t,1320,0.03,ch==='.'?0.02:0.12,'sine');
-   if(ch!=='.')hit(ch,t,acc);
-   queue.push({t:t,bar:st.bar,k:st.k});}
-  st.k++;
-  if(st.k>=st.n){st.barStart+=(st.n/st.div)*st.beat;st.k=0;if(st.ci>0)st.ci--;else{st.bar=(st.bar+1)%st.bars.length;st.bn=(st.bn||0)+1;}st.beat=60/(+bpmEl.value)*st.bq;}}}
-function draw(){raf=0;if(!cur)return;while(queue.length&&queue[0].t<=ctx.currentTime){var q=queue.shift();clearNow(cur.el);
-  var pat=cur.pats[q.bar];if(pat){var kids=pat.children;if(!q.ci&&kids[q.k])kids[q.k].classList.add('now');if(kids[cur.n+q.k])kids[cur.n+q.k].classList.add('now');}}
- raf=requestAnimationFrame(draw);}
-function start(el,btn){if(window.ladderUnmute)ladderUnmute();if(!ctx)ctx=new AC();if(ctx.state==='suspended')ctx.resume();
- master=ctx.createGain();master.connect(ctx.destination);if(gcomp){gcomp.disconnect();gcomp.connect(master);}
- if(gtrEl&&gtrEl.checked)prepGtr();
- var bars=el.getAttribute('data-bars').split('|');
- var acc=el.getAttribute('data-acc').split('|').map(function(a){return a?a.split(',').map(Number):[];});
- cur={el:el,btn:btn,bars:bars,acc:acc,n:bars[0].length,div:+el.getAttribute('data-div'),swing:el.getAttribute('data-swing')==='1',
-  pats:el.querySelectorAll('.pat'),bar:0,k:0,bq:+el.getAttribute('data-bq')||1,barStart:ctx.currentTime+0.12};cur.beat=60/(+bpmEl.value)*cur.bq;
- var cs=[],kids=cur.pats[0].children;for(var i=0;i<cur.n;i++){if(/^[0-9]+$/.test(kids[cur.n+i].textContent))cs.push(i);}
- cur.call=cs;cur.c1=cs.length%2===0?[cs[0],cs[cs.length/2]]:[cs[0]];cur.ci=cinEl.checked?2:0;
- btn.textContent='\u25A0';btn.setAttribute('aria-pressed','true');btn.classList.add('on');schedule();timer=setInterval(schedule,25);raf=requestAnimationFrame(draw);}
-document.addEventListener('click',function(e){var btn=e.target.closest?e.target.closest('button.play'):null;if(!btn)return;
- var el=btn.closest('article.rung'),same=cur&&cur.el===el;stop();if(!same)start(el,btn);});
-})();
-</script>
+<script>// The sticky top bar: keeps --top-h at its height, so a jump to an anchor (scroll-padding-top) lands below it.
+(function () {
+  var t = document.querySelector('.top');
+  if (!t) return;
+  function f() {
+    document.documentElement.style.setProperty('--top-h', (t.offsetHeight + 12) + 'px');
+  }
+  f();
+  if (window.ResizeObserver) new ResizeObserver(f).observe(t);
+  else window.addEventListener('resize', f);
+})();</script>
+<script>// The 'notation' box: shows or hides the line of standard notation under each pattern, remembered in this browser.
+(function () {
+  var b = document.getElementById('nt');
+  if (!b) return;
+  var on = true;
+  try {
+    on = localStorage.getItem('notation') !== 'off';
+  } catch { /* storage blocked: keep the default */ }
+  function f() {
+    document.documentElement.classList.toggle('nonotes', !on);
+    b.checked = on;
+  }
+  f();
+  b.addEventListener('change', function () {
+    on = b.checked;
+    try {
+      localStorage.setItem('notation', on ? 'on' : 'off');
+    } catch { /* storage blocked: not remembered */ }
+    f();
+  });
+})();</script>
+<script>// The pattern index: a link to #index opens it, and following a link inside it closes it.
+(function () {
+  var d = document.getElementById('index');
+  if (!d) return;
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a') : null;
+    if (!a) return;
+    if (a.getAttribute('href') === '#index') d.open = true;
+    else if (d.contains(a)) d.open = false;
+  });
+})();</script>
+<script>// Ticks for 'I can play this'. Kept in the reader's browser only (localStorage), as a list of tick_key() values
+// (build.py); the progress line, the level counts and the bars in the level buttons are painted from them.
+(function () {
+  var KEY = 'ladder-done',
+    arts = [].slice.call(document.querySelectorAll('article.rung[data-key]')),
+    prog = document.getElementById('progress');
+  if (!arts.length || !prog) return;
+  var done = {}, armed = null;
+  function load() {
+    done = {};
+    try {
+      JSON.parse(localStorage.getItem(KEY) || '[]').forEach(function (k) {
+        done[k] = 1;
+      });
+    } catch { /* blocked or unreadable: start empty */ }
+  }
+  function save() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(Object.keys(done)));
+    } catch { /* storage blocked: ticks last this visit only */ }
+  }
+  function el(tag, text, attrs) {
+    var x = document.createElement(tag);
+    x.textContent = text;
+    for (var k in attrs || {}) x.setAttribute(k, attrs[k]);
+    return x;
+  }
+  function paint() {
+    var n = 0, next = null, per = {};
+    arts.forEach(function (a) {
+      var on = !!done[a.getAttribute('data-key')], lv = a.getAttribute('data-lv'), p = per[lv] || (per[lv] = [0, 0]);
+      a.classList.toggle('done', on);
+      a.querySelector('.canbox').checked = on;
+      p[1]++;
+      if (on) {
+        p[0]++;
+        n++;
+      } else if (!next) next = a;
+      var link = document.querySelector('#index a[href="#' + a.id + '"]');
+      if (link) link.classList.toggle('done', on);
+    });
+    Object.keys(per).forEach(function (lv) {
+      var p = per[lv];
+      [].forEach.call(document.querySelectorAll('.lvcount[data-lv="' + lv + '"]'), function (s) {
+        s.textContent = p[0] ? p[0] + ' of ' + p[1] : '';
+      });
+      var b = document.querySelector('nav.levels a[href="#level-' + lv + '"]');
+      if (b) b.style.setProperty('--pct', Math.round(100 * p[0] / p[1]) + '%');
+    });
+    prog.textContent = '';
+    if (!n) {
+      prog.textContent = 'Tick “I can play this” under a pattern and the page will remember it, in this browser only.';
+      return;
+    }
+    prog.appendChild(
+      el(
+        'strong',
+        n === arts.length
+          ? 'You can play all ' + n + ' patterns.'
+          : 'You can play ' + n + ' of ' + arts.length + ' patterns.',
+      ),
+    );
+    if (next) {
+      prog.appendChild(document.createTextNode(' Next: '));
+      prog.appendChild(
+        el('a', next.id.replace('rung-', '') + '. ' + next.getAttribute('data-title'), { href: '#' + next.id }),
+      );
+      prog.appendChild(document.createTextNode('.'));
+    }
+    prog.appendChild(el('button', 'Clear my ticks', { type: 'button', id: 'unticks' }));
+  }
+  document.addEventListener('change', function (e) {
+    var b = e.target;
+    if (!b.classList || !b.classList.contains('canbox')) return;
+    var k = b.closest('article.rung').getAttribute('data-key');
+    if (b.checked) done[k] = 1;
+    else delete done[k];
+    save();
+    paint();
+  });
+  document.addEventListener('click', function (e) {
+    if (e.target.id !== 'unticks') return;
+    if (!armed) {
+      e.target.textContent = 'Tap again to clear all ticks';
+      armed = setTimeout(function () {
+        armed = null;
+        paint();
+      }, 4000);
+      return;
+    }
+    clearTimeout(armed);
+    armed = null;
+    done = {};
+    save();
+    paint();
+  });
+  window.addEventListener('storage', function (e) {
+    if (e.key === KEY) {
+      load();
+      paint();
+    }
+  });
+  load();
+  paint();
+})();</script>
+<script>// iPhone and iPad: Safari plays Web Audio through the "ambient" audio session, which the silent switch mutes. Setting the
+// Audio Session API to "playback" (newer Safari) and playing a looping, silent <audio> element (older Safari) both move the
+// page to the "playback" session, which the switch does not mute. Players call ladderUnmute() on start and
+// ladderUnmuteEnd() on stop. The silent clip is 0.1 s of 8-bit 8 kHz silence.
+(function () {
+  var a = null;
+  window.ladderUnmute = function () {
+    try {
+      if (navigator.audioSession && navigator.audioSession.type !== 'playback') {
+        navigator.audioSession.type = 'playback';
+      }
+    } catch { /* no Audio Session API: the silent clip below does it */ }
+    if (!a) {
+      a = document.createElement('audio');
+      a.setAttribute('x-webkit-airplay', 'deny');
+      a.setAttribute('playsinline', '');
+      a.loop = true;
+      a.src =
+        'data:audio/wav;base64,UklGRkQDAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YSADAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==';
+    }
+    var p = a.play();
+    if (p && p.catch) p.catch(function () {});
+  };
+  window.ladderUnmuteEnd = function () {
+    setTimeout(function () {
+      if (a && !document.querySelector('button.play.on,button.fplay.on')) a.pause();
+    }, 0);
+  };
+})();</script>
+<script>// The click track for the strumming patterns: press a pattern's play button to loop it, after an optional count-in.
+// Each <article class="rung"> carries its bars in data-bars (one letter per count, see the README) and its accents in
+// data-acc. Sounds are scheduled a little ahead on the Web Audio clock; the highlight follows them by animation frame.
+(function () {
+  var AC = window.AudioContext || window.webkitAudioContext;
+  var bpmEl = document.getElementById('bpm'),
+    bpmOut = document.getElementById('bpmv'),
+    tickEl = document.getElementById('tick'),
+    cinEl = document.getElementById('cin'),
+    bellEl = document.getElementById('bell');
+  if (!AC || !bpmEl || !bpmOut || !tickEl || !cinEl) return;
+  var ctx = null, nbuf = null, cur = null, timer = null, raf = 0, queue = [];
+  // Every sound of one playback goes through its own gain node, 'master'. Stop fades it out, which also silences notes
+  // already scheduled ahead (up to 1.5 s in a hidden tab).
+  var master = null, gcomp = null;
+  function out() {
+    return master || ctx.destination;
+  }
+  bpmEl.addEventListener('input', function () {
+    bpmOut.textContent = bpmEl.value;
+  });
+  function tone(t, f, dur, vol, type) {
+    var o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = type || 'triangle';
+    o.frequency.setValueAtTime(f, t);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.003);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g);
+    g.connect(out());
+    o.start(t);
+    o.stop(t + dur + 0.03);
+  }
+  function noise(t, dur, vol, freq, type) {
+    if (!nbuf) {
+      nbuf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.25), ctx.sampleRate);
+      var d = nbuf.getChannelData(0);
+      for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    }
+    var s = ctx.createBufferSource(), fl = ctx.createBiquadFilter(), g = ctx.createGain();
+    s.buffer = nbuf;
+    fl.type = type || 'bandpass';
+    fl.frequency.value = freq;
+    fl.Q.value = 1.2;
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    s.connect(fl);
+    fl.connect(g);
+    g.connect(out());
+    s.start(t);
+    s.stop(t + dur + 0.03);
+  }
+  // Guitar sound. Each string is a Karplus-Strong plucked string: a short burst of filtered noise, shaped like a string
+  // plucked near the soundhole, fed back through a delay one period of the note long; computed once per note and kept.
+  // The strings are spread a little left to right and go through a guitar-body filter, a small room reverb and a
+  // compressor. Strums alternate an open G chord and an open C chord bar by bar; a downstroke starts at the chord's
+  // lowest string, an upstroke covers the top four. Each pluck varies a little in time, loudness and tuning.
+  var gtrEl = document.getElementById('gtr'), ks = {}, ringing = [], gbus = null, gpan = [];
+  var GCH = [{ n: [43, 47, 50, 55, 59, 67], lo: 0 }, { n: [0, 48, 52, 55, 60, 64], lo: 1 }];
+  function bus() {
+    if (gbus) return gbus;
+    var comp = ctx.createDynamicsCompressor();
+    comp.threshold.value = -16;
+    comp.ratio.value = 3;
+    comp.connect(out());
+    gcomp = comp;
+    var f = [
+        ['peaking', 105, 1.2, 4],
+        ['peaking', 210, 1.4, 2.5],
+        ['peaking', 1200, 1, -2],
+        ['peaking', 3200, 1.5, -3],
+        ['highshelf', 7000, 0.7, -8],
+      ],
+      node = comp,
+      i;
+    for (i = f.length - 1; i >= 0; i--) {
+      var q = ctx.createBiquadFilter();
+      q.type = f[i][0];
+      q.frequency.value = f[i][1];
+      q.Q.value = f[i][2];
+      q.gain.value = f[i][3];
+      q.connect(node);
+      node = q;
+    }
+    var rv = ctx.createConvolver(),
+      len = Math.floor(ctx.sampleRate * 1.3),
+      ir = ctx.createBuffer(2, len, ctx.sampleRate);
+    for (var c = 0; c < 2; c++) {
+      var d = ir.getChannelData(c);
+      for (var j = 0; j < len; j++) d[j] = (Math.random() * 2 - 1) * Math.pow(1 - j / len, 3) * 0.5;
+    }
+    rv.buffer = ir;
+    var wet = ctx.createGain();
+    wet.gain.value = 0.16;
+    rv.connect(wet);
+    wet.connect(comp);
+    gbus = ctx.createGain();
+    gbus.gain.value = 1.8;
+    gbus.connect(node);
+    gbus.connect(rv);
+    for (var st = 0; st < 6; st++) {
+      var pn = ctx.createStereoPanner ? ctx.createStereoPanner() : ctx.createGain();
+      if (pn.pan) pn.pan.value = -0.35 + st * 0.14;
+      pn.connect(gbus);
+      gpan[st] = pn;
+    }
+    return gbus;
+  }
+  function ksBuf(m, kind) {
+    var key = m + '_' + kind;
+    if (ks[key]) return ks[key];
+    var sr = ctx.sampleRate,
+      f = 440 * Math.pow(2, (m - 69) / 12),
+      N = Math.max(2, Math.round(sr / f)),
+      mute = kind === 2,
+      len = Math.floor(sr * (mute ? 0.22 : 3.2)),
+      b = ctx.createBuffer(1, len, sr),
+      d = b.getChannelData(0),
+      x = new Float32Array(N),
+      p = 0,
+      i,
+      mx = 0,
+      lp = mute ? 0.8 : kind === 1 ? 0.25 : 0.5,
+      pk = Math.max(1, Math.round(N * 0.12));
+    for (i = 0; i < N; i++) {
+      p = p * lp + (Math.random() * 2 - 1) * (1 - lp);
+      x[i] = p;
+    }
+    for (i = 0; i < N; i++) {
+      d[i] = x[i] - (i >= pk ? x[i - pk] : 0) * 0.9;
+      mx = Math.max(mx, Math.abs(d[i]));
+    }
+    for (i = 0; i < N; i++) d[i] = d[i] / (mx || 1) * 0.6;
+    var k = mute ? 0.955 : 0.9965 + 0.002 * Math.min(1, 110 / f);
+    for (i = N; i < len; i++) d[i] = k * 0.5 * (d[i - N] + (i - N - 1 >= 0 ? d[i - N - 1] : 0));
+    var fd = Math.floor(sr * 0.05);
+    for (i = 0; i < fd; i++) d[len - 1 - i] *= i / fd;
+    ks[key] = b;
+    return b;
+  }
+  function damp(si, t) {
+    var r = ringing[si];
+    if (!r) return;
+    try {
+      r.g.gain.cancelScheduledValues(t);
+      r.g.gain.setTargetAtTime(0, t, 0.012);
+      r.s.stop(t + 0.12);
+    } catch { /* the note has already ended */ }
+    ringing[si] = null;
+  }
+  function pluck(si, t, vol, kind, m) {
+    damp(si, t);
+    if (!m) return;
+    bus();
+    var s = ctx.createBufferSource(), g = ctx.createGain();
+    s.buffer = ksBuf(m, kind);
+    s.playbackRate.value = 1 + (Math.random() - 0.5) * 0.004;
+    g.gain.setValueAtTime(vol * (0.88 + Math.random() * 0.24), t);
+    s.connect(g);
+    g.connect(gpan[si]);
+    s.start(t);
+    ringing[si] = { s: s, g: g };
+  }
+  function strum(t, down, vol, from, to, kind, gap, C) {
+    var lo = Math.max(from, C.lo), n = 0, si;
+    function one(si) {
+      pluck(si, t + gap * n + (Math.random() - 0.5) * 0.003, vol * (1 - 0.04 * n), kind, C.n[si]);
+      n++;
+    }
+    if (down) { for (si = lo; si <= to; si++) one(si); }
+    else for (si = to; si >= lo; si--) one(si);
+  }
+  function chordNow() {
+    return GCH[((cur && cur.bn) || 0) % 2];
+  }
+  function prepGtr() {
+    GCH.forEach(function (C) {
+      C.n.forEach(function (m) {
+        if (m) {
+          ksBuf(m, 0);
+          ksBuf(m, 1);
+        }
+      });
+    });
+  }
+  function hitG(ch, t, acc) {
+    var C = chordNow(), v = acc ? 0.55 : 0.34;
+    if (ch === 'D') strum(t, 1, v, 0, 5, acc ? 1 : 0, acc ? 0.0055 : 0.007, C);
+    else if (ch === 'U') strum(t, 0, v * 0.72, 2, 5, 1, 0.006, C);
+    else if (ch === 'S' || ch === 's') {
+      if (ch === 'S') strum(t, 1, v, 0, 5, 0, 0.007, C);
+      else strum(t, 0, v * 0.72, 2, 5, 1, 0.006, C);
+      for (var i = 0; i < 6; i++) damp(i, t + 0.13);
+    } else if (ch === 'B') pluck(C.lo, t, 0.6, 0, C.n[C.lo]);
+    else if (ch === 'P') strum(t, 1, 0.55, 0, 3, 2, 0.006, C);
+    else {
+      for (var j = 0; j < 6; j++) damp(j, t);
+      strum(t, ch !== 'm', 0.26, ch === 'm' ? 2 : 0, 5, 2, 0.005, C);
+      noise(t, 0.04, ch === 'X' ? 0.4 : 0.28, ch === 'm' ? 3400 : 2300);
+    }
+  }
+  function hit(ch, t, acc) {
+    if (gtrEl && gtrEl.checked) {
+      hitG(ch, t, acc);
+      return;
+    }
+    var v = acc ? 0.95 : 0.5;
+    if (ch === 'D') tone(t, 440, 0.085, v, 'triangle');
+    else if (ch === 'U') tone(t, 1760, 0.03, v * 0.4, 'square');
+    else if (ch === 'S') tone(t, 440, 0.024, v, 'triangle');
+    else if (ch === 's') tone(t, 1760, 0.014, v * 0.4, 'square');
+    else if (ch === 'B') tone(t, 110, 0.24, 0.9, 'sine');
+    else if (ch === 'M' || ch === 'm' || ch === 'X') noise(t, 0.045, 0.7, ch === 'm' ? 3400 : 2300);
+    else if (ch === 'P') {
+      noise(t, 0.06, 0.5, 480, 'lowpass');
+      tone(t, 165, 0.08, 0.5, 'sine');
+    }
+  }
+  function offset(st, k) {
+    var b = Math.floor(k / st.div),
+      r = k % st.div,
+      fr = st.swing ? (st.div === 2 ? [0, 2 / 3] : [0, 1 / 3, 1 / 2, 5 / 6])[r] : r / st.div;
+    return b + fr;
+  }
+  function clearNow(el) {
+    [].forEach.call(el.querySelectorAll('.now'), function (x) {
+      x.classList.remove('now');
+    });
+  }
+  function stop() {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+    if (raf) {
+      cancelAnimationFrame(raf);
+      raf = 0;
+    }
+    if (ctx) { for (var gi = 0; gi < 6; gi++) damp(gi, ctx.currentTime); }
+    if (master) {
+      var m = master;
+      master = null;
+      m.gain.setTargetAtTime(0, ctx.currentTime, 0.01);
+      setTimeout(function () {
+        m.disconnect();
+      }, 150);
+    }
+    if (cur) {
+      clearNow(cur.el);
+      cur.btn.textContent = '\u25B6';
+      cur.btn.setAttribute('aria-pressed', 'false');
+      cur.btn.classList.remove('on');
+      if (window.ladderUnmuteEnd) ladderUnmuteEnd();
+    }
+    cur = null;
+    queue = [];
+  }
+  function schedule() {
+    var st = cur;
+    if (!st) return;
+    var ahead = document.hidden ? 1.5 : 0.14;
+    while (true) {
+      var t = st.barStart + offset(st, st.k) * st.beat;
+      if (t > ctx.currentTime + ahead) break;
+      if (st.ci > 0) {
+        var on = (st.ci === 2 ? st.c1 : st.call).indexOf(st.k) > -1;
+        if (on) {
+          noise(t, 0.03, 0.55, st.k === 0 ? 3000 : 2000);
+          tone(t, st.k === 0 ? 1568 : 1175, 0.05, 0.4, 'triangle');
+          queue.push({ t: t, bar: 0, k: st.k, ci: true });
+        }
+      } else {
+        var ch = st.bars[st.bar].charAt(st.k), acc = st.acc[st.bar].indexOf(st.k) > -1;
+        if (st.k === 0 && (ch !== '.' || (bellEl && bellEl.checked))) {
+          tone(t, 988, 0.38, 0.5, 'sine');
+          tone(t, 2960, 0.22, 0.22, 'sine');
+        } else if (tickEl.checked && st.k % st.div === 0) tone(t, 1320, 0.03, ch === '.' ? 0.02 : 0.12, 'sine');
+        if (ch !== '.') hit(ch, t, acc);
+        queue.push({ t: t, bar: st.bar, k: st.k });
+      }
+      st.k++;
+      if (st.k >= st.n) {
+        st.barStart += (st.n / st.div) * st.beat;
+        st.k = 0;
+        if (st.ci > 0) st.ci--;
+        else {
+          st.bar = (st.bar + 1) % st.bars.length;
+          st.bn = (st.bn || 0) + 1;
+        }
+        st.beat = 60 / (+bpmEl.value) * st.bq;
+      }
+    }
+  }
+  function draw() {
+    raf = 0;
+    if (!cur) return;
+    while (queue.length && queue[0].t <= ctx.currentTime) {
+      var q = queue.shift();
+      clearNow(cur.el);
+      var pat = cur.pats[q.bar];
+      if (pat) {
+        var kids = pat.children;
+        if (!q.ci && kids[q.k]) kids[q.k].classList.add('now');
+        if (kids[cur.n + q.k]) kids[cur.n + q.k].classList.add('now');
+      }
+    }
+    raf = requestAnimationFrame(draw);
+  }
+  function start(el, btn) {
+    if (window.ladderUnmute) ladderUnmute();
+    if (!ctx) ctx = new AC();
+    if (ctx.state === 'suspended') ctx.resume();
+    master = ctx.createGain();
+    master.connect(ctx.destination);
+    if (gcomp) {
+      gcomp.disconnect();
+      gcomp.connect(master);
+    }
+    if (gtrEl && gtrEl.checked) prepGtr();
+    var bars = el.getAttribute('data-bars').split('|');
+    var acc = el.getAttribute('data-acc').split('|').map(function (a) {
+      return a ? a.split(',').map(Number) : [];
+    });
+    cur = {
+      el: el,
+      btn: btn,
+      bars: bars,
+      acc: acc,
+      n: bars[0].length,
+      div: +el.getAttribute('data-div'),
+      swing: el.getAttribute('data-swing') === '1',
+      pats: el.querySelectorAll('.pat'),
+      bar: 0,
+      k: 0,
+      bq: +el.getAttribute('data-bq') || 1,
+      barStart: ctx.currentTime + 0.12,
+    };
+    cur.beat = 60 / (+bpmEl.value) * cur.bq;
+    var cs = [], kids = cur.pats[0].children;
+    for (var i = 0; i < cur.n; i++) if (/^[0-9]+$/.test(kids[cur.n + i].textContent)) cs.push(i);
+    cur.call = cs;
+    cur.c1 = cs.length % 2 === 0 ? [cs[0], cs[cs.length / 2]] : [cs[0]];
+    cur.ci = cinEl.checked ? 2 : 0;
+    btn.textContent = '\u25A0';
+    btn.setAttribute('aria-pressed', 'true');
+    btn.classList.add('on');
+    schedule();
+    timer = setInterval(schedule, 25);
+    raf = requestAnimationFrame(draw);
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('button.play') : null;
+    if (!btn) return;
+    var el = btn.closest('article.rung'), same = cur && cur.el === el;
+    stop();
+    if (!same) start(el, btn);
+  });
+})();</script>
 <script data-goatcounter="https://pedromsantos.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
-<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href$=".pdf"]');if(a&&window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:'strumming-ladder-pdf',title:'Strumming Ladder PDF download',event:true});});</script>
+<script>// Public page only: a click on a link to the PDF is sent to the GoatCounter visit counter as an event, because the
+// PDF itself cannot run the counter's script.
+document.addEventListener('click', function (e) {
+  var a = e.target.closest && e.target.closest('a[href$=".pdf"]');
+  if (a && window.goatcounter && window.goatcounter.count) {
+    window.goatcounter.count({ path: 'strumming-ladder-pdf', title: 'Strumming Ladder PDF download', event: true });
+  }
+});</script>
 </body></html>
