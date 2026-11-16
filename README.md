@@ -9,13 +9,12 @@ Guitar rhythm patterns, ordered so that most of them add, move or remove a strok
 Every pattern has a diagram, a line of rhythm notation and a play button. You can hear it as a click track or on a synthesised guitar, over a chord progression you choose or type in, at any tempo. You can tick the patterns you can play, and share a link to one pattern. Ticks and choices are kept in your own browser only.
 
 - Web page: <https://pedromsantos.github.io/strumming-ladder/>
-- PDF (strumming patterns only): [strumming-ladder.pdf](strumming-ladder.pdf)
 
 The song pairings come from guitar lessons, tabs and studies of recordings, and were not checked against the recordings. Found a wrong pattern? Please use the feedback form linked on the page, or open an issue.
 
 The author is a guitar student, not a teacher, and made these materials for their own practice.
 
-`index.html`, `strumming-ladder.pdf` and `og.png` are generated files; edits made here by hand will be overwritten.
+`index.html` and `og.png` are generated files; edits made here by hand will be overwritten.
 
 ## Licence
 
